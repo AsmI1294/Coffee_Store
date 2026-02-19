@@ -27,8 +27,12 @@ const router = createBrowserRouter([
         Component: AddCoffee,
       },
       {
-        path: "updateCoffee",
+        path: "updateCoffee/:id",
         Component: UpdateCoffee,
+        loader: async ({ params }) => {
+          const res = await fetch(`http://localhost:3000/coffee/${params.id}`);
+          return res.json();
+        },
       },
       {
         path: "coffeeDetails/:id",

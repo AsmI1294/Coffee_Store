@@ -5,9 +5,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router";
 
 const CoffeeCard = ({ coffee, onDelete }) => {
-  console.log(coffee);
   const { _id, photo, name, quantity, price } = coffee;
-  console.log(photo);
 
   const handleDelete = (_id) => {
     Swal.fire({
@@ -58,9 +56,12 @@ const CoffeeCard = ({ coffee, onDelete }) => {
               >
                 <FontAwesomeIcon icon={faEye} />
               </Link>
-              <button className="btn join-item bg-[#331A15] border-amber-300 hover:bg-amber-300 text-lg md:text-xl">
+              <Link
+                to={`/updateCoffee/${_id}`}
+                className="btn join-item bg-[#331A15] border-amber-300 hover:bg-amber-300 text-lg md:text-xl"
+              >
                 Edit
-              </button>
+              </Link>
 
               <button
                 className="btn join-item bg-[#331A15] border-amber-300 hover:bg-amber-300 text-lg md:text-xl"
