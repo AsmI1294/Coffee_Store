@@ -8,6 +8,7 @@ const MainLayout = () => {
     <div>
       <Header></Header>
       <div
+        className="min-h-[60lvh]"
         style={{
           backgroundImage:
             "url('https://coffee-image-bucket-demo.s3.us-east-2.amazonaws.com/images/more/1.png')",
