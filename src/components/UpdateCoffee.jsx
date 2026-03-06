@@ -26,7 +26,7 @@ const UpdateCoffee = () => {
       .then((data) => {
         if (data.modifiedCount > 0) {
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "Coffee updated successfully!",
             showConfirmButton: false,

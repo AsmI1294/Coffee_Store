@@ -39,7 +39,7 @@ const CoffeeCard = ({ coffee, onDelete }) => {
   return (
     <div>
       <div className="card card-side bg-base-100 shadow-sm border-4 border-amber-500 hover:mx-5 justify-between">
-        <figure className="m-2 ">
+        <figure className="m-2 md:w-24 md:h-32 lg:w-38 lg:h-54 ">
           <img src={photo} alt="Broken link" />
         </figure>
         <div className="flex w-5/6 lg:w-4/6 justify-between lg:m-4 space-x-3">

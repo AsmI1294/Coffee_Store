@@ -8,6 +8,9 @@ import Home from "./components/Home.jsx";
 import AddCoffee from "./components/AddCoffee.jsx";
 import UpdateCoffee from "./components/UpdateCoffee.jsx";
 import CoffeeDetails from "./components/CoffeeDetails.jsx";
+import SignIn from "./components/SignIn.jsx";
+import Register from "./components/Register.jsx";
+import AuthProvider from "./contexts/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,10 +45,20 @@ const router = createBrowserRouter([
           return res.json();
         },
       },
+      {
+        path: "signIn",
+        Component: SignIn,
+      },
+      {
+        path: "register",
+        Component: Register,
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />,
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>,
 );
