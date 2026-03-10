@@ -3,10 +3,15 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Header = () => {
+  const { logOut, user } = use(AuthContext);
+  console.log(user);
+  const name = user?.data?.name;
+
   return (
     <div
       className="navbar min-h-32 bg-cover bg-center bg-no-repeat "
@@ -26,17 +31,23 @@ const Header = () => {
           <p className="text-3xl md:text-6xl ">Espresso Emporium</p>
         </Link>
       </div>
+
       <div className="navbar-end">
-        <button className="btn btn-ghost btn-circle text-xl md:text-2xl border border-amber-50 mr-1">
-          <FontAwesomeIcon icon={faUser} />
-        </button>
-        <p>Name</p>
-        <button
-          className="btn btn-ghost btn-circle text-xl md:text-2xl ml-2"
-          title="Log out"
-        >
-          <FontAwesomeIcon icon={faArrowRightFromBracket} />
-        </button>
+        {name ? (
+          <>
+            <button className="btn btn-ghost btn-circle text-xl md:text-2xl border border-amber-50 mr-1">
+              <FontAwesomeIcon icon={faUser} />
+            </button>
+            <p>{name}</p>
+            <button
+              className="btn btn-ghost btn-circle text-xl md:text-2xl ml-2"
+              title="Log out"
+              onClick={() => logOut()}
+            >
+              <FontAwesomeIcon icon={faArrowRightFromBracket} />
+            </button>
+          </>
+        ) : null}
       </div>
     </div>
   );

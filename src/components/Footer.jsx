@@ -14,7 +14,7 @@ import {
 const Footer = () => {
   return (
     <>
-      <div className="flex flex-col lg:flex-row p-4 ">
+      <div className="flex flex-col lg:flex-row p-4  justify-between">
         <div className="text-[#331A15]  space-y-2">
           <div>
             <img
@@ -52,25 +52,25 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/2 p-2 mt-10 md:mt-2 flex lg:justify-end">
-          <form className="text-[#331A15]  space-y-3 flex flex-col w-full md:w-3/4">
+        <div className="w-1/2 p-2 mt-10 md:mt-2 flex justify-end">
+          <form className="text-[#331A15]  space-y-3 flex flex-col w-full lg:w-1/2">
             <p className="text-2xl md:text-4xl font-medium">Connect with Us</p>
             <input
               type="text"
               placeholder="Name"
-              className="input bg-[#331A15] text-amber-50"
+              className="input bg-[#331A15] w-full text-amber-50"
             />
             <input
               type="text"
               placeholder="mail@site.com"
-              className="input bg-[#331A15] text-amber-50"
+              className="input w-full bg-[#331A15] text-amber-50"
             />
 
             <textarea
-              className="textarea bg-[#331A15] text-amber-50"
+              className="textarea bg-[#331A15] text-amber-50 w-full"
               placeholder="Bio"
             ></textarea>
-            <button className="btn btn-outline hover:bg-[#331A15] hover:text-white border-2 w-1/4 text-lg">
+            <button className="btn btn-outline hover:bg-[#331A15] hover:text-white border-2 w-1/4 text-lg ">
               Send
             </button>
           </form>

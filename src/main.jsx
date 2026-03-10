@@ -11,6 +11,7 @@ import CoffeeDetails from "./components/CoffeeDetails.jsx";
 import SignIn from "./components/SignIn.jsx";
 import Register from "./components/Register.jsx";
 import AuthProvider from "./contexts/AuthProvider.jsx";
+import PrivateRoute from "./layouts/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home,
+        element: (
+          <PrivateRoute>
+            <Home></Home>
+          </PrivateRoute>
+        ),
         loader: async () => {
           const res = await fetch("http://localhost:3000/coffees");
           return res.json();
