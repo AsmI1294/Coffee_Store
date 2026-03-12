@@ -118,7 +118,7 @@ const AddCoffee = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="btn bg-[#331A15] border-amber-300 block text-xl m-6 hover:px-6 "
+              className="btn bg-[#331A15] border-amber-300 block text-xl m-6 transition transform hover:scale-120 "
             >
               Submit
             </button>

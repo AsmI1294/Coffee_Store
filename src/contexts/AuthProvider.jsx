@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { auth } from "../firebase/firebase.init";
+
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -24,28 +25,47 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser?.email) {
-        const fetchUser = async () => {
+        const fetchUser = async (retries = 3, delay = 500) => {
           try {
             const res = await fetch(
               `http://localhost:3000/user/${currentUser.email}`,
             );
-            if (!res.ok) throw new Error("Failed to fetch user data");
-            const data = await res.json();
+            const text = await res.text();
+
+            if (!text) {
+              if (retries > 0) {
+                setTimeout(() => fetchUser(retries - 1, delay * 2), delay);
+                return;
+              }
+              // exhausted retries, no data found
+              setUser({ currentUser, data: null });
+              setLoading(false);
+              return;
+            }
+
+            const data = JSON.parse(text);
             setUser({ currentUser, data });
-            setLoading(false);
+            setLoading(false); // ✅ only done once we have a real answer
           } catch (err) {
             console.error(err);
-            setUser({ currentUser, data: null }); // optional fallback
+            if (retries > 0) {
+              setTimeout(() => fetchUser(retries - 1, delay * 2), delay);
+              return;
+            }
+            // exhausted retries, error occurred
+            setUser({ currentUser, data: null });
+            setLoading(false);
           }
         };
+
         fetchUser();
       } else {
         setUser(null);
+        setLoading(false);
       }
     });
-    return () => {
-      unsubscribe();
-    };
+
+    return () => unsubscribe();
   }, []);
 
   const userInfo = { createUser, loginUser, logOut, user, loading };

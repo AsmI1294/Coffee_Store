@@ -44,7 +44,11 @@ const Register = () => {
     createUser(userData.email, userData.password)
       .then((userCredential) => {
         // Signed up
-        console.log("firebase user created", userCredential);
+
+        const lastLoginGMT = userCredential.user.metadata.lastSignInTime;
+        user.lastLogin = new Date(lastLoginGMT).toLocaleString();
+        user.firebaseUID = userCredential.user.uid;
+
         fetch("http://localhost:3000/users", {
           method: "POST",
           headers: {
@@ -59,9 +63,9 @@ const Register = () => {
                 title: "Info",
                 text: "Successfully Added",
               });
+              navigate("/", { replace: true });
             }
           });
-        navigate("/", { replace: true });
       })
       .catch((error) => {
         Swal.fire({

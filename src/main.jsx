@@ -12,6 +12,8 @@ import SignIn from "./components/SignIn.jsx";
 import Register from "./components/Register.jsx";
 import AuthProvider from "./contexts/AuthProvider.jsx";
 import PrivateRoute from "./layouts/PrivateRoute.jsx";
+import CartProvider from "./contexts/CartProvider.jsx";
+import UserDetails from "./components/UserDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -58,12 +60,22 @@ const router = createBrowserRouter([
         path: "register",
         Component: Register,
       },
+      {
+        path: "users",
+        Component: UserDetails,
+        loader: async () => {
+          const res = await fetch("http://localhost:3000/users");
+          return res.json();
+        },
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <RouterProvider router={router} />
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   </AuthProvider>,
 );

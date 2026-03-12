@@ -8,23 +8,32 @@ const SignIn = () => {
   const { loginUser } = use(AuthContext);
   const navigate = useNavigate();
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData.entries());
-    loginUser(userData.email, userData.password)
-      .then(() => {
-        // Signed in
-        navigate("/", { replace: true });
-        // ...
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Login Failed",
-          text: error.code,
-        });
+    try {
+      const userCredential = await loginUser(userData.email, userData.password);
+
+      // reload forces Firebase to refresh metadata including lastSignInTime
+      await userCredential.user.reload();
+      const lastLoginGMT = userCredential.user.metadata.lastSignInTime;
+      const lastLogin = new Date(lastLoginGMT).toLocaleString();
+
+      await fetch(`http://localhost:3000/lastSignIn/${userData.email}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lastLogin }),
       });
+
+      navigate("/", { replace: true });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.code,
+      });
+    }
   };
 
   return (

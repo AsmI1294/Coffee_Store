@@ -5,8 +5,6 @@ import Restriction from "../components/Restriction";
 const PrivateRoute = ({ children }) => {
   const { user } = use(AuthContext);
 
-  console.log(user);
-
   if (!user) {
     return <Restriction></Restriction>;
   }

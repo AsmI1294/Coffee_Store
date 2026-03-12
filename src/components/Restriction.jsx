@@ -11,10 +11,10 @@ const Restriction = () => {
           </p>
 
           <div className="card-actions flex-col md:flex-row ">
-            <button className="btn bg-[#331A15] border-amber-300 block text-2xl mx-auto hover:px-6">
+            <button className="btn bg-[#331A15] border-amber-300 block text-2xl mx-auto transition transform hover:scale-120">
               <Link to={"/signIn"}>Log In</Link>
             </button>
-            <button className="btn bg-[#331A15] border-amber-300 block text-2xl  hover:px-6">
+            <button className="btn bg-[#331A15] border-amber-300 block text-2xl  transition transform hover:scale-120">
               <Link to={"/register"}>Register</Link>
             </button>
           </div>

@@ -9,7 +9,7 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const Header = () => {
   const { logOut, user } = use(AuthContext);
-  console.log(user);
+
   const name = user?.data?.name;
 
   return (
